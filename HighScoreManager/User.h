@@ -7,18 +7,23 @@
 using namespace std;
 
 class User {
-public:
-	User login(string);
-	bool CheckIfUserExists(string);
-	string UpdateUserList();
-	void DeleteUser();
-	int SetHighScore();
-private:
-	struct UserInfo{
-		string username;
-		int age;
-		string firstName;
-		string lastName;
-	};
+private: string firstName;
+		 string lastName;
+		 string username;
+		 int age;
+
+public: string getFirstName() { return firstName; };
+		void setFirstName(string FirstName) { firstName = FirstName; };
+		string getLlastName() { return lastName; };
+		void setLastName(string LastName) { lastName = LastName; };
+		void setAge(int age) { this->age = age; };
+		int getAge() { return age; };
+		User login(string);
+		bool CheckIfUserExists(string);
+		string UpdateUserList(User user);
+		void DeleteUser();
+		int SetHighScore();
+	
+
 
 };

@@ -8,6 +8,7 @@ int main() {
 	bool inProgram;
 	string userName;
 	User currentUser;
+	HighScoreManager highScores;
 	int menuChoice;
 
 	do{
@@ -31,15 +32,20 @@ int main() {
 
 		if (menuChoice == 1) {
 			//Allow user to update their high score
+
+			currentUser.SetHighScore();
 		}
 		else if(menuChoice == 2) {
 			//Print the top 10 scores from the binary file
+			highScores.PrintHighScore();
 		}
 		else if (menuChoice == 3) {
 			//Allow user to edit their information
+			currentUser.UpdateUserList();
 		}
 		else if (menuChoice == 4) {
 			//Delete the user and log them out automatically
+			currentUser.DeleteUser();
 
 			cout << "Your information has been deleted. You will now be logged out..." << endl;
 			inProgram = false;

@@ -12,7 +12,8 @@ private: string firstName;
 		 string username;
 		 int age;
 
-public: string getFirstName() { return firstName; };
+public: string getUsername() { return username; };
+		string getFirstName() { return firstName; };
 		void setFirstName(string FirstName) { firstName = FirstName; };
 		string getLlastName() { return lastName; };
 		void setLastName(string LastName) { lastName = LastName; };

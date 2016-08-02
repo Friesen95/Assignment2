@@ -5,7 +5,7 @@
 #include <iostream>
 
 int main() {
-	bool inProgram;
+	bool inProgram = true;
 	string userName;
 	User currentUser;
 	HighScoreManager highScores;
@@ -53,7 +53,6 @@ int main() {
 		else {
 			inProgram = false;
 		}
-
 
 	}while (inProgram);
 

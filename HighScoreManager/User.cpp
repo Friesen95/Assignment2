@@ -118,7 +118,6 @@ void User::UpdateUserList(User user)
 			cout << "Invalid Choice" << endl;
 		}
 	} while (updateMenuChoice < 1 || updateMenuChoice > 4);
-	// call the update txt file here
 }
 
 void User::DeleteUser(User currentUser)
@@ -129,19 +128,21 @@ void User::DeleteUser(User currentUser)
 	//Check list of users stored in users 
 	fstream usersFile("Users.txt", ios::in);
 	ofstream updateFile;
-	updateFile.open("tempUser.txt");
+	updateFile.open("tempUser.txt", ofstream::out | ofstream::trunc);
 	if (usersFile.is_open()) {
 		while (getline(usersFile, line))
 		{
 			pos = line.find(delimiter);
 			if ((line.substr(0, pos)) != currentUser.username) {
-				updateFile << line;
+				updateFile << line << endl;
 			}
 		}
 	}
 	else {
 		cout << "The file was not found!";
 	}
+	usersFile.close();
+	updateFile.close();
 	remove("Users.txt");
 	rename("tempUser.txt", "Users.txt");
 }
@@ -149,4 +150,36 @@ void User::DeleteUser(User currentUser)
 int User::SetHighScore()
 {
 	return 0;
+}
+
+void updateTxtFile(User currentUser)
+{
+	string line;
+	size_t pos = 0;
+	string delimiter = ",";
+	//Check list of users stored in users 
+	fstream usersFile("Users.txt", ios::in);
+	ofstream updateFile;
+	updateFile.open("tempUser.txt", ofstream::out | ofstream::trunc);
+	if (usersFile.is_open()) {
+		while (getline(usersFile, line))
+		{
+			pos = line.find(delimiter);
+			if ((line.substr(0, pos)) == currentUser.getUsername) {
+				updateFile << currentUser.getUsername << "," << currentUser.getFirstName << "," <<
+					currentUser.getLlastName << "," << currentUser.getAge << "," << endl;
+			}
+			else
+			{
+				updateFile << line << endl;
+			}
+		}
+	}
+	else {
+		cout << "The file was not found!";
+	}
+	usersFile.close();
+	updateFile.close();
+	remove("Users.txt");
+	rename("tempUser.txt", "Users.txt");
 }

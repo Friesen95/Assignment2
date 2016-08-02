@@ -45,7 +45,7 @@ int main() {
 		}
 		else if (menuChoice == 4) {
 			//Delete the user and log them out automatically
-			currentUser.DeleteUser();
+			currentUser.DeleteUser(currentUser);
 
 			cout << "Your information has been deleted. You will now be logged out..." << endl;
 			inProgram = false;

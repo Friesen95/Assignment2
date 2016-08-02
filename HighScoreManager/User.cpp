@@ -81,11 +81,32 @@ void User::UpdateUserList(User user)
 			cout << "Invalid Choice" << endl;
 		}
 	} while (updateMenuChoice < 1 || updateMenuChoice > 4);
+	// call the update txt file here
 }
 
-void User::DeleteUser()
+void User::DeleteUser(User currentUser)
 {
-
+	string line;
+	size_t pos = 0;
+	string delimiter = ",";
+	//Check list of users stored in users 
+	fstream usersFile("Users.txt", ios::in);
+	ofstream updateFile;
+	updateFile.open("tempUser.txt");
+	if (usersFile.is_open()) {
+		while (getline(usersFile, line))
+		{
+			pos = line.find(delimiter);
+			if ((line.substr(0, pos)) != currentUser.username) {
+				updateFile << line;
+			}
+		}
+	}
+	else {
+		cout << "The file was not found!";
+	}
+	remove("Users.txt");
+	rename("tempUser.txt", "Users.txt");
 }
 
 int User::SetHighScore()

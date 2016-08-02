@@ -21,7 +21,7 @@ public: string getFirstName() { return firstName; };
 		User login(string);
 		bool CheckIfUserExists(string);
 		void UpdateUserList(User user);
-		void DeleteUser();
+		void DeleteUser(User currentUser);
 		int SetHighScore();
 
 

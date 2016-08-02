@@ -17,7 +17,7 @@ int main() {
 
 		getline(cin, userName);
 
-		currentUser.login(userName);
+		currentUser = currentUser.login(userName);
 
 		cout << "Menu: Please choose one of the following options..." << endl << "1) Enter your high score" << endl << "2) Print the top 10 scores" << 
 			endl << "3) Edit your information" << endl << "4) Delete your user information" << endl << "5) Exit" << endl;

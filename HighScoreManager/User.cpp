@@ -5,18 +5,55 @@
 #include <fstream>
 
 User User::login(string userName){
+	User currentUser;
 	bool existingUser = CheckIfUserExists(userName);
 	if (existingUser == true) {
-		//Check file for match and store user
+		string line;
+		size_t pos = 0;
+		string delimiter = ",";
+		bool keepChecking = true;
+		//Check list of users stored in users 
+		fstream usersFile("Users.txt", ios::in);
+		if (usersFile.is_open()) {
+			//While there's another line
+			while (getline(usersFile, line) && keepChecking)
+			{
+				//Grab the first delimiter position (username)
+				pos = line.find(delimiter);
+				//If they match, set user info
+				if ((line.substr(0, pos)) == userName) {
+					int section = 1;
+					currentUser.username = line.substr(0, pos);
+					while ((pos = line.find(delimiter)) != std::string::npos)
+					{
+						if (section == 2) {
+							currentUser.firstName = line.substr(0, pos);
+						}
+						else if (section == 3) {
+							currentUser.lastName = line.substr(0, pos);
+						}
+						else if (section == 4){
+							currentUser.age = std::stoi(line.substr(0, pos));
+						}
+						section++;
+						line.erase(0, pos + delimiter.length());
+					}
 
-		cout << "Welcome back, " << userName << endl;
+					keepChecking = false;
+				}
+			}
+		}
+		else {
+			cout << "The file was not found!";
+		}
+		cout << "Welcome back, " << currentUser.username << endl;
 	}
 	else{
 		//Create user
 
 		cout << "Nice to meet you, " << userName << "! A new account has been created for you!" << endl;
 	}
-	return User();
+	return User(currentUser);
 }
 
 bool User::CheckIfUserExists(string userName)

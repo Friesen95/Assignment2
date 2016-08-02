@@ -1,4 +1,5 @@
 #include "User.h"
+#include "HighScoreManager.h"
 #include <string>
 #include <cstring>
 #include <iostream>
@@ -158,9 +159,11 @@ void User::DeleteUser(User currentUser)
 	rename("tempUser.txt", "Users.txt");
 }
 
-int User::SetHighScore()
-{
-	return 0;
+void User::SetHighScore(string userName)
+{	
+	HighScoreManager highScores;
+	int newScore = highScores.CreateHighScore(userName);
+	highScores.UpdateHighScore(newScore, userName);
 }
 
 void User::UpdateUserList(User currentUser)

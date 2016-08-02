@@ -25,8 +25,5 @@ public: string getUsername() { return username; };
 		User UpdateUser(User user);
 		void UpdateUserList(User);
 		void DeleteUser(User currentUser);
-		int SetHighScore();
-
-
-
+		void SetHighScore(string);
 };

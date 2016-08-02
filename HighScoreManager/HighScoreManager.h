@@ -8,14 +8,13 @@ using namespace std;
 
 class HighScoreManager {
 public:
-	void CreateHighScore();
-	void UpdateHighScore();
+	int CreateHighScore(string);
+	void UpdateHighScore(int, string);
 	void PrintHighScore();
-	
-private:
+
 	struct UserScore{
 		string username;
 		int score;
-		//date
+		string date;
 	};
 };

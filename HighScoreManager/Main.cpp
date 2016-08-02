@@ -11,14 +11,14 @@ int main() {
 	HighScoreManager highScores;
 	int menuChoice;
 
+	cout << "Welcome to the High Score Manager." << endl;
+	cout << "Please enter your username to log in. If your name is not recognised, a new user will be created." << endl;
+
+	getline(cin, userName);
+
+	currentUser = currentUser.login(userName);
+
 	do{
-		cout << "Welcome to the High Score Manager." << endl;
-		cout << "Please enter your username to log in. If your name is not recognised, a new user will be created." << endl;
-
-		getline(cin, userName);
-
-		currentUser = currentUser.login(userName);
-
 		cout << "Menu: Please choose one of the following options..." << endl << "1) Enter your high score" << endl << "2) Print the top 10 scores" << 
 			endl << "3) Edit your information" << endl << "4) Delete your user information" << endl << "5) Exit" << endl;
 
@@ -41,7 +41,7 @@ int main() {
 		}
 		else if (menuChoice == 3) {
 			//Allow user to edit their information
-			currentUser.UpdateUserList(currentUser);
+			currentUser = currentUser.UpdateUser(currentUser);
 		}
 		else if (menuChoice == 4) {
 			//Delete the user and log them out automatically
@@ -51,10 +51,13 @@ int main() {
 			inProgram = false;
 		}
 		else {
+			//Update the list (this will run and update regardless of if a new user has been added, or a user has edited their information)
+			currentUser.UpdateUserList(currentUser);
 			inProgram = false;
 		}
 
 	}while (inProgram);
+
 
 	cout << "You are now logged out." << endl << "Thank you for using the High Score Manager." << endl << "Goodbye." << endl;
 

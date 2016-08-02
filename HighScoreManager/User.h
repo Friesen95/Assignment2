@@ -13,15 +13,17 @@ private: string firstName;
 		 int age;
 
 public: string getUsername() { return username; };
+		void setUsername(string userName) { username = userName; };
 		string getFirstName() { return firstName; };
 		void setFirstName(string FirstName) { firstName = FirstName; };
-		string getLlastName() { return lastName; };
+		string getLastName() { return lastName; };
 		void setLastName(string LastName) { lastName = LastName; };
 		void setAge(int age) { this->age = age; };
 		int getAge() { return age; };
 		User login(string);
 		bool CheckIfUserExists(string);
-		void UpdateUserList(User user);
+		User UpdateUser(User user);
+		void UpdateUserList(User);
 		void DeleteUser(User currentUser);
 		int SetHighScore();
 

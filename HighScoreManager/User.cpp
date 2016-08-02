@@ -21,16 +21,23 @@ User User::login(string userName){
 
 bool User::CheckIfUserExists(string userName)
 {
+	string line;
+	size_t pos = 0;
+	string delimiter = ",";
 	//Check list of users stored in users 
 	fstream usersFile("Users.txt", ios::in);
 	if (usersFile.is_open()) {
 		while (getline(usersFile, line))
 		{
-
+			pos = line.find(delimiter);
+			if((line.substr(0, pos)) == userName) {
+				cout << "User found";
+				return true;
+			}
 		}
 	}
 	else {
-
+		cout << "The file was not found!";
 	}
 	//Read in first line from users file
 	//check name against name
@@ -38,7 +45,7 @@ bool User::CheckIfUserExists(string userName)
 	return false;
 }
 
-string User::UpdateUserList(User user)
+void User::UpdateUserList(User user)
 {
 	int updateMenuChoice, UserInput;
 	string userInput;
@@ -74,7 +81,6 @@ string User::UpdateUserList(User user)
 			cout << "Invalid Choice" << endl;
 		}
 	} while (updateMenuChoice < 1 || updateMenuChoice > 4);
-	return string();
 }
 
 void User::DeleteUser()

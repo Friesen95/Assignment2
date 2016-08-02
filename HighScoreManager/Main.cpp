@@ -41,7 +41,7 @@ int main() {
 		}
 		else if (menuChoice == 3) {
 			//Allow user to edit their information
-			currentUser.UpdateUserList();
+			currentUser.UpdateUserList(currentUser);
 		}
 		else if (menuChoice == 4) {
 			//Delete the user and log them out automatically

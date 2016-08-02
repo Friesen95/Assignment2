@@ -20,7 +20,7 @@ public: string getFirstName() { return firstName; };
 		int getAge() { return age; };
 		User login(string);
 		bool CheckIfUserExists(string);
-		string UpdateUserList(User user);
+		void UpdateUserList(User user);
 		void DeleteUser();
 		int SetHighScore();
 

@@ -38,14 +38,48 @@ bool User::CheckIfUserExists(string userName)
 	return false;
 }
 
-string User::UpdateUserList()
+string User::UpdateUserList(User user)
 {
+	int updateMenuChoice, UserInput;
+	string userInput;
+	do {
+		cout << "What would you like to edit?" << endl <<
+			"1) First Name" << endl << "2) Last Name" << endl << "3) Age" << endl << "4) Exit";
+		cin >> updateMenuChoice;
+
+		if (updateMenuChoice == 1)
+		{
+			cout << "New First Name: ";
+			getline(cin, userInput);
+			user.setFirstName(userInput);
+		}
+		else if (updateMenuChoice == 2)
+		{
+			cout << "New Last Name: ";
+			getline(cin, userInput);
+			user.setLastName(userInput);
+		}
+		else if (updateMenuChoice == 3)
+		{
+			cout << "New Age: ";
+			cin >> UserInput;
+			user.setAge(UserInput);
+		}
+		else if (updateMenuChoice == 4)
+		{
+			cout << "Thank you" << endl;
+		}
+		else
+		{
+			cout << "Invalid Choice" << endl;
+		}
+	} while (updateMenuChoice < 1 || updateMenuChoice > 4);
 	return string();
 }
 
 void User::DeleteUser()
 {
-	
+
 }
 
 int User::SetHighScore()

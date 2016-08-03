@@ -33,6 +33,7 @@ int main() {
 		if (menuChoice == 1) {
 			//Allow user to update their high score
 			currentUser.SetHighScore(userName);
+			cout << "Your high score has been updated!";
 		}
 		else if(menuChoice == 2) {
 			//Print the top 10 scores from the binary file

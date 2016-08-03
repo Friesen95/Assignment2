@@ -37,8 +37,6 @@
     <Text Include="Users.txt">
       <Filter>Source Files</Filter>
     </Text>
-    <Text Include="Scores.txt">
-      <Filter>Source Files</Filter>
-    </Text>
+    <Text Include="Scores.txt" />
   </ItemGroup>
 </Project>

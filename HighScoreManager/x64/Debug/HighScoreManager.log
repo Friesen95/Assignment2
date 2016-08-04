@@ -1,3 +1,4 @@
 ﻿  HighScoreManager.cpp
-  HighScoreManager.vcxproj -> D:\Emma\Documents\School\Semester 4\Intro to C++\Assignment 2\Assignment Files\Assignment2\x64\Debug\HighScoreManager.exe
-  HighScoreManager.vcxproj -> D:\Emma\Documents\School\Semester 4\Intro to C++\Assignment 2\Assignment Files\Assignment2\x64\Debug\HighScoreManager.pdb (Partial PDB)
+c:\collage\year_2\semester_2\c++\highscoremanager\assignment2\highscoremanager\highscoremanager.cpp(61): warning C4101: 'section': unreferenced local variable
+  HighScoreManager.vcxproj -> C:\COLLAGE\Year_2\Semester_2\C++\HighScoreManager\Assignment2\x64\Debug\HighScoreManager.exe
+  HighScoreManager.vcxproj -> C:\COLLAGE\Year_2\Semester_2\C++\HighScoreManager\Assignment2\x64\Debug\HighScoreManager.pdb (Partial PDB)

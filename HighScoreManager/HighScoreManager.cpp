@@ -54,4 +54,42 @@ void HighScoreManager::UpdateHighScore(int newScore, string userName)
 
 void HighScoreManager::PrintHighScore()
 {
+	int const HIGHSCORE_TOP10 = 10;
+	string line;
+	size_t pos = 0;
+	string delimiter = ",";
+	int section;
+	fstream usersFile("Scores.txt", ios::in);
+	if (usersFile.is_open()) {
+		// get the first 10 results 
+		cout << "Position" << "\t\tUsername" << "\t\t Score" << "\t\t Date" << endl;
+		int position = 1;
+		for(int x = 1; x <= HIGHSCORE_TOP10; x++)
+		{
+			getline(usersFile, line);
+			// substring the line 3 times because there are three items
+			for (int y = 1; y <= 3; y++)
+			{
+				pos = line.find(delimiter);
+				if (y == 1)
+				{
+					cout << x << ")\t\t\t"<< line.substr(0, pos);
+				}
+				else if (y == 2)
+				{
+					cout << "\t\t\t" << line.substr(0, pos);
+				}
+				else
+				{
+					cout << "\t\t" << line.substr(0, pos);
+				}
+
+				line.erase(0, pos + delimiter.length());
+			}
+			cout << endl;
+		}
+	}
+	else {
+		cout << "The file was not found!";
+	}
 }

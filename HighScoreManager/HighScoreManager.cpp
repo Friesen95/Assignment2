@@ -93,9 +93,10 @@ void HighScoreManager::PrintHighScore()
 	fstream usersFile("Scores.txt", ios::in);
 	if (usersFile.is_open()) {
 		// get the first 10 results 
-		cout << "Position" << "\t\tUsername" << "\t\t Score" << "\t\t Date" << endl;
+		cout << "Position" << "\tUsername" << "\t\tScore" << "\t\tDate" << endl;
 		int position = 1;
-		for(int x = 1; x <= HIGHSCORE_TOP10; x++)
+		int nameSize;
+		for (int x = 1; x <= HIGHSCORE_TOP10; x++)
 		{
 			getline(usersFile, line);
 			// substring the line 3 times because there are three items
@@ -104,17 +105,22 @@ void HighScoreManager::PrintHighScore()
 				pos = line.find(delimiter);
 				if (y == 1)
 				{
-					cout << x << ")\t\t\t"<< line.substr(0, pos);
+					cout << x << ")\t\t" << line.substr(0, pos);
+					nameSize = line.substr(0, pos).length();
 				}
 				else if (y == 2)
 				{
-					cout << "\t\t\t" << line.substr(0, pos);
+					if (nameSize < 8) {
+						cout << "\t\t\t" << line.substr(0, pos);
+					}
+					else {
+						cout << "\t\t" << line.substr(0, pos);
+					}
 				}
 				else
 				{
 					cout << "\t\t" << line.substr(0, pos);
 				}
-
 				line.erase(0, pos + delimiter.length());
 			}
 			cout << endl;

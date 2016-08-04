@@ -1,11 +1,11 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "HighScoreManager.h"
 #include <string>
 #include <cstring>
 #include <iostream>
 #include <fstream>
 #include <ctime>
-#include <chrono>
-//Got the time function from http://en.cppreference.com/w/cpp/chrono
+//Got the time function from http://stackoverflow.com/questions/997946/how-to-get-current-time-and-date-in-c
 
 int HighScoreManager::CreateHighScore(string userName)
 {
@@ -21,11 +21,11 @@ int HighScoreManager::CreateHighScore(string userName)
 void HighScoreManager::UpdateHighScore(int newScore, string userName)
 {
 	cout << "Updating scores..." << endl;
-	std::chrono::time_point<std::chrono::system_clock> time;
-	
 	bool placeFound = false;
+	time_t t = time(0);   // get time now
+	struct tm * now = localtime(&t);
 	int points;
-	string line;
+	string line, user;
 	size_t pos = 0;
 	string delimiter = ",";
 	fstream scoresFile("Scores.txt", ios::in);
@@ -36,42 +36,49 @@ void HighScoreManager::UpdateHighScore(int newScore, string userName)
 		int position = 0;
 		while (getline(scoresFile, line))
 		{
-			cout << "checkin lines...";
-			pos = line.find(delimiter);
+			//cout << "checkin lines...";
 			for (int x = 1; x <= 3; x++)
 			{
-				cout <<"Inside for loop" << x;
-				// this if statment is incorrect something
-				if (x == 2) {
+				pos = line.find(delimiter);
+				//cout << x << endl;
+				//cout << line.substr(0, pos) << "%" << endl;
+				if (x == 1)
+				{
+					// assign the user to a string
+					user = line.substr(0, pos);
+				}
+				else if (x == 2)
+				{
 					points = std::stoi(line.substr(0, pos));
-					cout << " %$ " << position <<": " << points << endl;
-					if (points <= newScore)
+					//cout <<"Points:"<< points << endl;
+					if (newScore >= points && placeFound == false)
 					{
-						cout << "Adding New Score";
-						time = std::chrono::system_clock::now();
-						std::time_t _time = std::chrono::system_clock::to_time_t(time);
-						updateFile << userName << "," << newScore << "," << std::ctime(&_time) << endl;
+						//cout << "Adding New Score - true";
+						
+						updateFile << userName << "," << newScore << "," << (now->tm_year + 1900) 
+							<< '/'
+							<< (now->tm_mon + 1) << '/'
+							<< now->tm_mday << "," << endl;
 						placeFound = true;
+						updateFile << user << "," << line << endl;
+					}
+					else
+					{
+						updateFile << user << "," << line << endl;
 					}
 				}
-				else 
-				{
-					updateFile << line << endl;
-					line.erase(0, pos + delimiter.length());
-				}
-				
+				line.erase(0, pos + delimiter.length());
 			}
+			//cout << endl << "End of for loop";
 		}
 		if (placeFound == false)
 		{
-			cout << "Adding New Score";
-			time = std::chrono::system_clock::now();
-			std::time_t _time = std::chrono::system_clock::to_time_t(time);
-			updateFile << userName << "," << newScore << "," << std::ctime(&_time) << endl;
-
+			//cout << "Adding New Score - false";
+			updateFile << userName << "," << newScore << "," << (now->tm_year + 1900)
+				<< '/'
+				<< (now->tm_mon + 1) << '/'
+				<< now->tm_mday << "," << endl;
 		}
-
-
 	}
 	else {
 		cout << "The file was not found!";
@@ -89,7 +96,7 @@ void HighScoreManager::PrintHighScore()
 	string line;
 	size_t pos = 0;
 	string delimiter = ",";
-	int section;
+
 	fstream usersFile("Scores.txt", ios::in);
 	if (usersFile.is_open()) {
 		// get the first 10 results 

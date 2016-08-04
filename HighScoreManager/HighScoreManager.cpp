@@ -3,6 +3,9 @@
 #include <cstring>
 #include <iostream>
 #include <fstream>
+#include <ctime>
+#include <chrono>
+//Got the time function from http://en.cppreference.com/w/cpp/chrono
 
 int HighScoreManager::CreateHighScore(string userName)
 {
@@ -18,6 +21,10 @@ int HighScoreManager::CreateHighScore(string userName)
 void HighScoreManager::UpdateHighScore(int newScore, string userName)
 {
 	cout << "Updating scores..." << endl;
+	std::chrono::time_point<std::chrono::system_clock> time;
+	
+	bool placeFound = false;
+	int points;
 	string line;
 	size_t pos = 0;
 	string delimiter = ",";
@@ -26,20 +33,44 @@ void HighScoreManager::UpdateHighScore(int newScore, string userName)
 	updateFile.open("tempScore.txt", ofstream::out | ofstream::trunc);
 	if (scoresFile.is_open()) {
 		cout << "Scores file open..." << endl;
+		int position = 0;
 		while (getline(scoresFile, line))
 		{
 			cout << "checkin lines...";
 			pos = line.find(delimiter);
-			int section = 1;
-			while ((pos = line.find(delimiter)) != std::string::npos)
+			for (int x = 1; x <= 3; x++)
 			{
-				if (section == 2) {
-					cout << "2: " << line.substr(0, pos) << endl;
+				cout <<"Inside for loop" << x;
+				// this if statment is incorrect something
+				if (x == 2) {
+					points = std::stoi(line.substr(0, pos));
+					cout << " %$ " << position <<": " << points << endl;
+					if (points <= newScore)
+					{
+						cout << "Adding New Score";
+						time = std::chrono::system_clock::now();
+						std::time_t _time = std::chrono::system_clock::to_time_t(time);
+						updateFile << userName << "," << newScore << "," << std::ctime(&_time) << endl;
+						placeFound = true;
+					}
 				}
-				section++;
-				line.erase(0, pos + delimiter.length());
+				else 
+				{
+					updateFile << line << endl;
+					line.erase(0, pos + delimiter.length());
+				}
+				
 			}
 		}
+		if (placeFound == false)
+		{
+			cout << "Adding New Score";
+			time = std::chrono::system_clock::now();
+			std::time_t _time = std::chrono::system_clock::to_time_t(time);
+			updateFile << userName << "," << newScore << "," << std::ctime(&_time) << endl;
+
+		}
+
 
 	}
 	else {

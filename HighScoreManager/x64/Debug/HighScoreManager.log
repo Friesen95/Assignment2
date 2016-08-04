@@ -1,4 +1,4 @@
 ﻿  HighScoreManager.cpp
-c:\collage\year_2\semester_2\c++\highscoremanager\assignment2\highscoremanager\highscoremanager.cpp(61): warning C4101: 'section': unreferenced local variable
-  HighScoreManager.vcxproj -> C:\COLLAGE\Year_2\Semester_2\C++\HighScoreManager\Assignment2\x64\Debug\HighScoreManager.exe
-  HighScoreManager.vcxproj -> C:\COLLAGE\Year_2\Semester_2\C++\HighScoreManager\Assignment2\x64\Debug\HighScoreManager.pdb (Partial PDB)
+c:\collage\year_2\semester_2\c++\highscoremanager\assignment2\highscoremanager\highscoremanager.cpp(52): error C4996: 'ctime': This function or variable may be unsafe. Consider using ctime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\time.h(475): note: see declaration of 'ctime'
+c:\collage\year_2\semester_2\c++\highscoremanager\assignment2\highscoremanager\highscoremanager.cpp(82): warning C4101: 'section': unreferenced local variable

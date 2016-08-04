@@ -58,7 +58,6 @@ int main() {
 
 	}while (inProgram);
 
-
 	cout << "You are now logged out." << endl << "Thank you for using the High Score Manager." << endl << "Goodbye." << endl;
 
 	system("PAUSE");

@@ -9,6 +9,7 @@
 
 int HighScoreManager::CreateHighScore(string userName)
 {
+	//Prompt user to enter their latest high score, return it
 	string scoreString;
 	int highScore;
 	cout << "Please enter your new high score, " << userName << " : ";
@@ -20,6 +21,9 @@ int HighScoreManager::CreateHighScore(string userName)
 
 void HighScoreManager::UpdateHighScore(int newScore, string userName)
 {
+	//This function will open the scores file, read through each line, check the line to see if the score
+	//is greater than or equal to the one in the line being read - if so, the new score will be inserted - if not,
+	//the original line will just be copied
 	cout << "Updating scores..." << endl;
 	bool placeFound = false;
 	time_t t = time(0);   // get time now
@@ -36,12 +40,9 @@ void HighScoreManager::UpdateHighScore(int newScore, string userName)
 		int position = 0;
 		while (getline(scoresFile, line))
 		{
-			//cout << "checkin lines...";
 			for (int x = 1; x <= 3; x++)
 			{
 				pos = line.find(delimiter);
-				//cout << x << endl;
-				//cout << line.substr(0, pos) << "%" << endl;
 				if (x == 1)
 				{
 					// assign the user to a string

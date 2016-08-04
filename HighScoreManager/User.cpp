@@ -27,6 +27,7 @@ User User::login(string userName){
 					currentUser.setUsername(line.substr(0, pos));
 					while ((pos = line.find(delimiter)) != std::string::npos)
 					{
+						//Based on what section we are at, update the information
 						if (section == 2) {
 							currentUser.setFirstName(line.substr(0, pos));
 						}
@@ -94,12 +95,12 @@ User User::UpdateUser(User user)
 	string menuChoice, userInput;
 	int updateMenuChoice;
 	do {
+		//Prompt the user for what they want to update
 		cout << "What would you like to edit?" << endl <<
 			"1) First Name" << endl << "2) Last Name" << endl << "3) Age" << endl << "4) Exit" << endl;
 		cin >> menuChoice;
-		/*getline(cin, menuChoice);*/
 		updateMenuChoice = std::stoi(menuChoice);
-
+		//Set the user's information to the new info based on their choice
 		if (updateMenuChoice == 1)
 		{
 			cout << "New First Name: ";
@@ -128,7 +129,7 @@ User User::UpdateUser(User user)
 			cout << "Invalid Choice" << endl;
 		}
 	} while (updateMenuChoice != 4);
-
+	//Return the updated user instance
 	return user;
 }
 
@@ -145,6 +146,8 @@ void User::DeleteUser(User currentUser)
 		while (getline(usersFile, line))
 		{
 			pos = line.find(delimiter);
+			//If the username is NOT a match, add it to the temp file
+			//where it does match, that user will be skipped over
 			if ((line.substr(0, pos)) != currentUser.username) {
 				updateFile << line << endl;
 			}
@@ -187,18 +190,20 @@ void User::UpdateUserList(User currentUser)
 	if (usersFile.is_open()) {
 		while (getline(usersFile, line))
 		{
+			//If username is a match, update it based on their current settings
 			pos = line.find(delimiter);
 			if ((line.substr(0, pos)) == (currentUser.getUsername())) {
 				updateFile << currentUser.getUsername() << "," << currentUser.getFirstName() << "," <<
 					currentUser.getLastName() << "," << userAge << "," << endl;
 				userFound = true;
 			}
+			//If it's not a match, then just add the original line
 			else
 			{
 				updateFile << line << endl;
 			}
 		}
-
+		//If we found no match for the user, it's a new user, add their info
 		if (userFound == false) {
 			updateFile << currentUser.getUsername() << "," << currentUser.getFirstName() << "," <<
 				currentUser.getLastName() << "," << userAge << "," << endl;
@@ -207,6 +212,7 @@ void User::UpdateUserList(User currentUser)
 	else {
 		cout << "The file was not found!";
 	}
+	//Close the files, overwrite the old Users file with the temp one holding the updated info
 	usersFile.close();
 	updateFile.close();
 	remove("Users.txt");
